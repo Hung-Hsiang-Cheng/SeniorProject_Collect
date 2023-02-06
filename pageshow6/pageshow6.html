@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>咚豬咚豬</title>
+  <script src="https://kit.fontawesome.com/a51879d85f.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css-self/pageshow.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <style>
+    .imgshow {
+      background-image: url("./img/咚豬咚豬1.jpg");
+      background-size: cover;
+      background-position:center;
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+
+  <header class="header">
+
+
+
+    <!-- nav -->
+    <nav>
+      <div class="divnavbar">
+        <div class="navmain">
+          <div style="display: flex; width:540px;">
+            <div class="items chat " id="itemone">
+              <a href="#" style="text-decoration: none; " class="achat" onclick="openNav()">
+                <div class="navItem">
+                  <i class="fa-regular fa-comments navIcon"></i>
+                  <div class="navItemTxt">聊天室</div>
+                </div>
+              </a>
+            </div>
+            <div class="items ">
+              <a href="#" style="text-decoration: none;" class="auser">
+                <div class="navItem">
+                  <i class="fa-regular fa-folder-open navIcon"></i>
+                  <div class="navItemTxt">用戶介面</div>
+                </div>
+              </a>
+            </div>
+            <div class="items">
+              <a href="#" style="text-decoration: none;" class="asearch" onclick="openSearch()">
+                <div class="navItem">
+                  <i class="fa-solid fa-magnifying-glass navIcon"></i>
+                  <div class="navItemTxt">搜尋</div>
+                </div>
+              </a>
+            </div>
+            <div class="items">
+              <a href="../主頁/主頁.html" style="text-decoration: none;">
+                <div class="navItem">
+                  <i class="fa-solid fa-house-chimney navIcon" id="homeIcon"></i>
+                  <div class="navItemTxt">首頁</div>
+                </div>
+              </a>
+            </div>
+            <div class="items">
+              <a href="#" style="text-decoration: none;" class="aorder">
+                <div class="navItem">
+                  <i class="fa-solid fa-cart-shopping navIcon"></i>
+                  <div class="navItemTxt">訂單</div>
+                </div>
+              </a>
+            </div>
+            <div class="items">
+              <a href="#" style="text-decoration: none;" onclick="openlogin()">
+                <div class="navItem">
+                  <i class="fa-solid fa-circle-user navIcon"></i>
+                  <div class="navItemTxt">登入</div>
+                </div>
+              </a>
+            </div>
+            <div class="navIndicator"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 聊天室 -->
+      <div class="navchat" id="navchat">
+        <div class="minbar" id="minbar">
+          <div class="chatname">聊天室</div><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        </div>
+        <div class="talkitems">
+          <div class="talkshow" id="words">
+            <!-- <div class="atalk"><span id="asay"></span><span class="talktime"></span></div>
+          <div class="btalk"><span id="bsay"></span><span class="talktime"></span></div></div> -->
+          </div>
+          <div class="talkinput">
+            <select class="whotalk" id="who">
+              <option value="0">A：</option>
+              <option value="1">B：</option>
+            </select>
+            <label class="talkfontsize" for="fontsizeSelect">文字大小:</label>
+            <input class="talkinputfontsize" type="range" id="talkfontsize" name="talkfontsize" min="9" max="36"
+              step="1" oninput="this.nextElementSibling.value = this.value">
+            <output class="talkfontsizeNum" id="talkfontsizeNumId">16</output>
+            <textarea class="talkword" id="talkwords" placeholder="聊天">
+          </textarea><input type="button" value="送出" class="talksub" id="talksub">
+          </div>
+
+        </div>
+      </div>
+      <!-- 搜尋 -->
+
+      <div class="divsearch" id="divsearch">
+        <div class="divsearchitems">
+
+          <div class="searchform">
+
+            <input type="text" placeholder="Search.." name="search" class="searchtext">
+            <button type="submit" class="searchicon"><i class="fa fa-search"></i></button>
+
+            <a class="btnclosesearch" onclick="closeSearch()">&times;</a>
+          </div>
+        </div>
+      </div>
+      <!-- 訂單 -->
+      <div class="orderlist" style=" display: none;">
+        <div class="orders">
+          <div class="ordertxt">目前訂單</div>
+          <div class="orderitems">目前無訂單，請前往團購</div>
+        </div>
+        <div class="line"></div>
+        <div class="orderhistory">
+          <div class="orderhistorytxt">歷史紀錄</div>
+          <div class="orderhistoryall">
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- 登入 -->
+      <div id="loginsideId" class="loginside">
+        <div class="loginitems">
+          <a href="javascript:void(0)" class="closeloginbtn" onclick="closelogin()">&times;</a>
+        </div>
+        <div class="logincontent">
+          <div class="imgcontainer">
+            <img src="./img/house-solid.svg" alt="Avatar" class="avatar">
+          </div>
+          <label for="uname"><b>帳號</b></label>
+          <input type="email" placeholder="請輸入帳號..." name="uname" required>
+
+          <label for="psw"><b>密碼</b></label>
+          <input type="password" placeholder="請輸入密碼" name="psw" required>
+
+          <button type="submit" class="loginsubmit">登入</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember" class="remember">記住我
+          </label>
+        </div>
+        <div class="container">
+          <span class="psw">忘記 <a href="#">密碼?</a></span>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <main>
+    <div class="imgshow">
+
+
+
+    </div>
+
+
+    <div class="storeshow">
+
+      <div class="containershow">
+        <div class="storetxt">『咚豬咚豬』韓式烤肉吃到飽</div>
+        <div class="storesort">
+          <div class="storenav">
+            <div class="lisort" id="limap">地圖資訊</div>
+            <div class="lisort" id="orderone">菜單</div>
+
+          </div>
+          <div class="storedetail">
+
+            <div class="storeform" id="storeform1" style="display: none;">
+              <div>
+                <a
+                  href="https://www.facebook.com/%E5%92%9A%E8%B1%AC%E5%92%9A%E8%B1%AC%E9%9F%93%E5%BC%8F%E7%83%A4%E8%82%89%E5%90%83%E5%88%B0%E9%A3%BD-198818130658888/"><img
+                    src="./img/咚豬咚豬2.png" alt="" style=" margin: auto 5px"></a>
+              </div>
+            </div>
+            <div class="storemap">
+
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58248.9450678375!2d120.57985424995425!3d24.15211844052811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693de26a925645%3A0x9d43f7832620fda8!2z5ZKa6LGs5ZKa6LGs44CC6Z-T5ZyL54Ok6IKJ5ZCD5Yiw6aO977yI5Y-w5Lit5YWs55uK5aSn5aKp5bqX77yJ!5e0!3m2!1szh-TW!2stw!4v1668649723821!5m2!1szh-TW!2stw"
+                width="500" height="500" style="border-radius: 10px;width: 100%;height: 100%;" allowfullscreen=""
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </main>
+  <!-- footer------------------------------------------------------------------------ -->
+  <footer style="height: 500px; ">
+
+
+
+
+
+    <div class="time">
+      <div class="container1">
+        <div class="dateItem" id="dateId"></div>
+        <div class="apmItem" id="apmId"></div>
+      </div>
+      <div class="container2">
+        <div class="hourItem" id="hourId"></div>
+      </div>
+      <div class="container3">
+        <div class="container5"></div>
+        <div class="minItem" id="minId"></div>
+        <div class="container4">
+          <div class="secItem" id="secId"></div>
+          <!-- <div class="customerFlow">瀏覽次數:<div class="customerFlowNum" id="flowNumId"></div></div> -->
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </footer>
+
+
+
+
+
+  </div>
+
+
+
+  <script src="jq/jquery-3.6.0.js"></script>
+
+  <script src="./js-self/pageshow.js"></script>
+</body>
+
+</html>

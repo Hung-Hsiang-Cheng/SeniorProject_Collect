@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>pageshow</title>
+  <script src="https://kit.fontawesome.com/a51879d85f.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css-self/pageshow.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <style>
+    .imgshow {
+      background-image: url("./img/豪煮藝1.jpg");
+      background-size: cover;
+      background-position: 0px -700px;
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+
+  <header class="header">
+
+
+
+    <!-- nav -->
+    <nav>
+      <div class="divnavbar">
+        <div class="navmain">
+          <div style="display: flex; width:540px;">
+            <div class="items chat " id="itemone">
+              <a href="#" style="text-decoration: none; " class="achat" onclick="openNav()">
+                <div class="navItem">
+                  <i class="fa-regular fa-comments navIcon"></i>
+                  <div class="navItemTxt">聊天室</div>
+                </div>
+              </a>
+            </div>
+            <div class="items ">
+              <a href="#" style="text-decoration: none;" class="auser">
+                <div class="navItem">
+                  <i class="fa-regular fa-folder-open navIcon"></i>
+                  <div class="navItemTxt">用戶介面</div>
+                </div>
+              </a>
+            </div>
+            <div class="items">
+              <a href="#" style="text-decoration: none;" class="asearch" onclick="openSearch()">
+                <div class="navItem">
+                  <i class="fa-solid fa-magnifying-glass navIcon"></i>
+                  <div class="navItemTxt">搜尋</div>
+                </div>
+              </a>
+            </div>
+            <div class="items">
+              <a href="../主頁/主頁.html" style="text-decoration: none;">
+                <div class="navItem">
+                  <i class="fa-solid fa-house-chimney navIcon" id="homeIcon"></i>
+                  <div class="navItemTxt">首頁</div>
+                </div>
+              </a>
+            </div>
+            <div class="items">
+              <a href="#" style="text-decoration: none;" class="aorder">
+                <div class="navItem">
+                  <i class="fa-solid fa-cart-shopping navIcon"></i>
+                  <div class="navItemTxt">訂單</div>
+                </div>
+              </a>
+            </div>
+            <div class="items">
+              <a href="#" style="text-decoration: none;" onclick="openlogin()">
+                <div class="navItem">
+                  <i class="fa-solid fa-circle-user navIcon"></i>
+                  <div class="navItemTxt">登入</div>
+                </div>
+              </a>
+            </div>
+            <div class="navIndicator"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 聊天室 -->
+      <div class="navchat" id="navchat">
+        <div class="minbar" id="minbar">
+          <div class="chatname">聊天室</div><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        </div>
+        <div class="talkitems">
+          <div class="talkshow" id="words">
+            <!-- <div class="atalk"><span id="asay"></span><span class="talktime"></span></div>
+          <div class="btalk"><span id="bsay"></span><span class="talktime"></span></div></div> -->
+          </div>
+          <div class="talkinput">
+            <select class="whotalk" id="who">
+              <option value="0">A：</option>
+              <option value="1">B：</option>
+            </select>
+            <label class="talkfontsize" for="fontsizeSelect">文字大小:</label>
+            <input class="talkinputfontsize" type="range" id="talkfontsize" name="talkfontsize" min="9" max="36"
+              step="1" oninput="this.nextElementSibling.value = this.value">
+            <output class="talkfontsizeNum" id="talkfontsizeNumId">16</output>
+            <textarea class="talkword" id="talkwords" placeholder="聊天">
+          </textarea><input type="button" value="送出" class="talksub" id="talksub">
+          </div>
+
+        </div>
+      </div>
+      <!-- 搜尋 -->
+
+      <div class="divsearch" id="divsearch">
+        <div class="divsearchitems">
+
+          <div class="searchform">
+
+            <input type="text" placeholder="Search.." name="search" class="searchtext">
+            <button type="submit" class="searchicon"><i class="fa fa-search"></i></button>
+
+            <a class="btnclosesearch" onclick="closeSearch()">&times;</a>
+          </div>
+        </div>
+      </div>
+      <!-- 訂單 -->
+      <div class="orderlist" style=" display: none;">
+        <div class="orders">
+          <div class="ordertxt">目前訂單</div>
+          <div class="orderitems">目前無訂單，請前往團購</div>
+        </div>
+        <div class="line"></div>
+        <div class="orderhistory">
+          <div class="orderhistorytxt">歷史紀錄</div>
+          <div class="orderhistoryall">
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- 登入 -->
+      <div id="loginsideId" class="loginside">
+        <div class="loginitems">
+          <a href="javascript:void(0)" class="closeloginbtn" onclick="closelogin()">&times;</a>
+        </div>
+        <div class="logincontent">
+          <div class="imgcontainer">
+            <img src="./img/house-solid.svg" alt="Avatar" class="avatar">
+          </div>
+          <label for="uname"><b>帳號</b></label>
+          <input type="email" placeholder="請輸入帳號..." name="uname" required>
+
+          <label for="psw"><b>密碼</b></label>
+          <input type="password" placeholder="請輸入密碼" name="psw" required>
+
+          <button type="submit" class="loginsubmit">登入</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember" class="remember">記住我
+          </label>
+        </div>
+        <div class="container">
+          <span class="psw">忘記 <a href="#">密碼?</a></span>
+        </div>
+      </div>
+    </nav>
+
+
+
+    <main>
+      <div class="imgshow">
+
+
+
+      </div>
+
+
+      <div class="storeshow">
+
+        <div class="containershow">
+          <div class="storetxt">豪煮藝經典麵食館</div>
+          <div class="storesort">
+            <div class="storenav">
+              <div class="lisort" id="limap">地圖資訊</div>
+              <div class="lisort" id="orderone">超人氣鍋貼</div>
+              <div class="lisort" id="ordertwo">牛肉麵食系列</div>
+              <div class="lisort" id="orderthree">經典麵食系列</div>
+              <div class="lisort" id="orderfour">飽滿水餃系列</div>
+              <div class="lisort" id="orderfive">暖心湯品</div>
+              <div class="lisort" id="ordersix">小品小點</div>
+              <div class="lisort" id="orderseven">冷凍水餃</div>
+
+            </div>
+            <div class="storedetail">
+
+
+
+
+              <div class="storeform" id="storeform7" style="display: none;">
+                <form class="storeinput" action="">
+                <!-- 34 -->
+                <div class="divinputitems" id="divinputitem34">
+                  <label class="lblitems" for="storeitems34">
+                    <input type="checkbox" id="storeitems34" name="CabbageDumplings20pcsfrozen" class="inputitems">
+                    <div class="storeitem">高麗菜水餃（冷凍 20顆）</div>
+                    <div class="storeprice">NT$120</div>
+                  </label>
+                </div>
+                <div class="storeselect" id="storeselect34">
+                  <div class="countpeople">
+                    <div class="peoplenumtitle">數量:</div>
+                    <div class="peoplenum">
+                      <div class="numprev" id="numprev34">&minus;</div>
+                      <input type="number" class="number spainner" name=numberofpeople id="num34" value="0">
+                      <div class="numnext" id="numnext34">+</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 35 -->
+                <div class="divinputitems" id="divinputitem35">
+                  <label class="lblitems" for="storeitems35">
+                    <input type="checkbox" id="storeitems35" name="ChiveDumplings20pcsfrozen" class="inputitems">
+                    <div class="storeitem">韭黃水餃（冷凍 20顆）</div>
+                    <div class="storeprice">NT$120</div>
+                  </label>
+                </div>
+                <div class="storeselect" id="storeselect35">
+                  <div class="countpeople">
+                    <div class="peoplenumtitle">數量:</div>
+                    <div class="peoplenum">
+                      <div class="numprev" id="numprev35">&minus;</div>
+                      <input type="number" class="number spainner" name=numberofpeople id="num35" value="0">
+                      <div class="numnext" id="numnext35">+</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 36 -->
+                <div class="divinputitems" id="divinputitem36">
+                  <label class="lblitems" for="storeitems36">
+                    <input type="checkbox" id="storeitems36" name="SpicyDumplings20pcsfrozen" class="inputitems">
+                    <div class="storeitem">麻辣水餃（冷凍 20顆）</div>
+                    <div class="storeprice">NT$120</div>
+                  </label>
+                </div>
+                <div class="storeselect" id="storeselect36">
+                  <div class="countpeople">
+                    <div class="peoplenumtitle">數量:</div>
+                    <div class="peoplenum">
+                      <div class="numprev" id="numprev36">&minus;</div>
+                      <input type="number" class="number spainner" name=numberofpeople id="num36" value="0">
+                      <div class="numnext" id="numnext36">+</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 37 -->
+                <div class="divinputitems" id="divinputitem37">
+                  <label class="lblitems" for="storeitems37">
+                    <input type="checkbox" id="storeitems37" name="MixedDumplings20pcsfrozen" class="inputitems">
+                    <div class="storeitem">綜合水餃（冷凍 20顆）</div>
+                    <div class="storeprice">NT$120</div>
+                  </label>
+                </div>
+                <div class="storeselect" id="storeselect37">
+                  <div class="selectitem">
+                    <div class="objitem">選項:</div>
+                    <input type="radio" id="notchives37" name="notchives37"><label for="notchives37">不韭黃</label>
+                    <input type="radio" id="notspicy37" name="notspicy37"><label for="notspicy37">不麻辣</label>
+                  </div>
+                  <div class="countpeople">
+                    <div class="peoplenumtitle">數量:</div>
+                    <div class="peoplenum">
+                      <div class="numprev" id="numprev37">&minus;</div>
+                      <input type="number" class="number spainner" name=numberofpeople id="num37" value="0">
+                      <div class="numnext" id="numnext37">+</div>
+                    </div>
+                  </div>
+                </div>
+
+
+                </form>
+              </div>
+
+
+              <div class="storeform" id="storeform6" style="display: none;">
+                <form class="storeinput" action="">
+                  <!-- 32 -->
+                  <div class="divinputitems" id="divinputitem32">
+                    <label class="lblitems" for="storeitems32">
+                      <input type="checkbox" id="storeitems32" name="SpicyPorkandCabbage" class="inputitems">
+                      <div class="storeitem">傳香肉燥燙高麗菜</div>
+                      <div class="storeprice">NT$40</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect32">
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev32">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num32" value="0">
+                        <div class="numnext" id="numnext32">+</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 33 -->
+                  <div class="divinputitems" id="divinputitem33">
+                    <label class="lblitems" for="storeitems33">
+                      <input type="checkbox" id="storeitems33" name="ColdPreservedEggTofu(Small)" class="inputitems">
+                      <div class="storeitem">涼拌皮蛋豆腐（小）</div>
+                      <div class="storeprice">NT$40</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect33">
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev33">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num33" value="0">
+                        <div class="numnext" id="numnext33">+</div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+
+              <div class="storeform" id="storeform5" style="display: none;">
+                <form class="storeinput" action="">
+                  <!-- 25 -->
+                  <div class="divinputitems" id="divinputitem25">
+                    <label class="lblitems" for="storeitems25">
+                      <input type="checkbox" id="storeitems25" name="snowflakeShabuBeefSoup" class="inputitems">
+                      <div class="storeitem">雪花涮牛肉湯</div>
+                      <div class="storeprice">NT$115</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect25">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="addsoup25" name="addsoup25"><label for="addsoup25">湯多</label>
+                      <input type="radio" id="nogreenonions25" name="nogreenonions25"><label
+                        for="nogreenonions25">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev25">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num25" value="0">
+                        <div class="numnext" id="numnext25">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 26 -->
+                  <div class="divinputitems" id="divinputitem26">
+                    <label class="lblitems" for="storeitems26">
+                      <input type="checkbox" id="storeitems26" name="BraisedBeefSoup" class="inputitems">
+                      <div class="storeitem">紅燒牛肉湯</div>
+                      <div class="storeprice">NT$115</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect26">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="addsoup26" name="addsoup26"><label for="addsoup26">湯多</label>
+                      <input type="radio" id="nogreenonions26" name="nogreenonions26"><label
+                        for="nogreenonions26">不蔥</label>
+                      <input type="radio" id="addbeef26" name="addbeef26"><label for="addbeef26">加一份牛肉</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev26">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num26" value="0">
+                        <div class="numnext" id="numnext26">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 27 -->
+                  <div class="divinputitems" id="divinputitem27">
+                    <label class="lblitems" for="storeitems27">
+                      <input type="checkbox" id="storeitems27" name="CornChowder" class="inputitems">
+                      <div class="storeitem">玉米濃湯</div>
+                      <div class="storeprice">NT$40</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect27">
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev27">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num27" value="0">
+                        <div class="numnext" id="numnext27">+</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 28 -->
+                  <div class="divinputitems" id="divinputitem28">
+                    <label class="lblitems" for="storeitems28">
+                      <input type="checkbox" id="storeitems28" name="wontonsoup" class="inputitems">
+                      <div class="storeitem">餛飩湯</div>
+                      <div class="storeprice">NT$45</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect28">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="nogreenonions28" name="nogreenonions28"><label
+                        for="nogreenonions28">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev28">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num28" value="0">
+                        <div class="numnext" id="numnext28">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 29 -->
+                  <div class="divinputitems" id="divinputitem29">
+                    <label class="lblitems" for="storeitems29">
+                      <input type="checkbox" id="storeitems29" name="TributeBallSoup" class="inputitems">
+                      <div class="storeitem">貢丸湯</div>
+                      <div class="storeprice">NT$45</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect29">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="addsoup29" name="addsoup29"><label for="addsoup29">湯多</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev29">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num29" value="0">
+                        <div class="numnext" id="numnext29">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 30 -->
+                  <div class="divinputitems" id="divinputitem30">
+                    <label class="lblitems" for="storeitems30">
+                      <input type="checkbox" id="storeitems30" name="fishballsoup" class="inputitems">
+                      <div class="storeitem">魚丸湯</div>
+                      <div class="storeprice">NT$45</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect30">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="addsoup30" name="addsoup30"><label for="addsoup30">湯多</label>
+                      <input type="radio" id="nogreenonions30" name="nogreenonions30"><label
+                        for="nogreenonions30">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev30">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num30" value="0">
+                        <div class="numnext" id="numnext30">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 31 -->
+                  <div class="divinputitems" id="divinputitem31">
+                    <label class="lblitems" for="storeitems31">
+                      <input type="checkbox" id="storeitems31" name="MixedMeatballSoup" class="inputitems">
+                      <div class="storeitem">綜合丸子湯</div>
+                      <div class="storeprice">NT$55</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect31">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="addsoup31" name="addsoup31"><label for="addsoup31">湯多</label>
+                      <input type="radio" id="nogreenonions31" name="nogreenonions31"><label
+                        for="nogreenonions31">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev31">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num31" value="0">
+                        <div class="numnext" id="numnext31">+</div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </form>
+              </div>
+
+
+              <div class="storeform" id="storeform4" style="display: none;">
+                <form class="storeinput" action="">
+                  <!-- 20 -->
+                  <div class="divinputitems" id="divinputitem20">
+                    <label class="lblitems" for="storeitems20">
+                      <input type="checkbox" id="storeitems20" name="ColorfulMixedDumplings" class="inputitems">
+                      <div class="storeitem">繽紛綜合水餃</div>
+                      <div class="storeprice">NT$70</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect20">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+
+                      <input type="radio" id="increase20" name="increase20"><label for="increase20">加大+$30</label>
+                      <input type="radio" id="notchives20" name="notchives20"><label for="notchives20">不韭黃</label>
+                      <input type="radio" id="notspicy20" name="notspicy20"><label for="notspicy20">不麻辣</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev20">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num20" value="0">
+                        <div class="numnext" id="numnext20">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 21 -->
+                  <div class="divinputitems" id="divinputitem21">
+                    <label class="lblitems" for="storeitems21">
+                      <input type="checkbox" id="storeitems21" name="freshVegetableCabbageDumplings" class="inputitems">
+                      <div class="storeitem">鮮蔬高麗菜</div>
+                      <div class="storeprice">NT$65</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect21">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="increase21" name="increase21"><label for="increase21">加大+$30</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev21">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num21" value="0">
+                        <div class="numnext" id="numnext21">+</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 22 -->
+                  <div class="divinputitems" id="divinputitem22">
+                    <label class="lblitems" for="storeitems22">
+                      <input type="checkbox" id="storeitems22" name="sichuanStyleSpicyDumplings" class="inputitems">
+                      <div class="storeitem">川味麻辣</div>
+                      <div class="storeprice">NT$70</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect22">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="increase22" name="increase22"><label for="increase22">加大+$30</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev22">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num22" value="0">
+                        <div class="numnext" id="numnext22">+</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 23 -->
+                  <div class="divinputitems" id="divinputitem23">
+                    <label class="lblitems" for="storeitems23">
+                      <input type="checkbox" id="storeitems23" name="highfiberChiveDumplings" class="inputitems">
+                      <div class="storeitem">高纖韭黃水餃</div>
+                      <div class="storeprice">NT$70</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect23">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="increase23" name="increase23"><label for="increase23">加大+$30</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev23">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num23" value="0">
+                        <div class="numnext" id="numnext23">+</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 24 -->
+                  <div class="divinputitems" id="divinputitem24">
+                    <label class="lblitems" for="storeitems24">
+                      <input type="checkbox" id="storeitems24" name="tenderGreenBeanDumplings" class="inputitems">
+                      <div class="storeitem">嫩拔四季豆水餃</div>
+                      <div class="storeprice">NT$75</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect24">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="increase24" name="increase24"><label for="increase24">加大+$30</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev24">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num24" value="0">
+                        <div class="numnext" id="numnext24">+</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+
+
+              <div class="storeform" id="storeform3" style="display: none;">
+                <form class="storeinput" action="">
+                  <!-- 15 -->
+                  <div class="divinputitems" id="divinputitem15">
+                    <label class="lblitems" for="storeitems15">
+                      <input type="checkbox" id="storeitems15" name="oldHutongFriedNoodles" class="inputitems">
+                      <div class="storeitem">老胡同炸醬麵</div>
+                      <div class="storeprice">NT$80</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect15">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled15" name="HandPulledNoodle15"><label
+                        for="HandPulled15">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles15" name="thinnoodles15"><label
+                        for="thinnoodles15">細麵(精工細作)</label>
+                      <input type="radio" id="increase15" name="increase15"><label for="increase15">加大+$10</label>
+                      <input type="radio" id="changecabbage15" name="changecabbage15"><label
+                        for="changecabbage15">小黃瓜換白菜</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev15">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num15" value="0">
+                        <div class="numnext" id="numnext15">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 16 -->
+                  <div class="divinputitems" id="divinputitem16">
+                    <label class="lblitems" for="storeitems16">
+                      <input type="checkbox" id="storeitems16" name="homemadeWontonNoodles" class="inputitems">
+                      <div class="storeitem">私房餛飩麵（乾）</div>
+                      <div class="storeprice">NT$70</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect16">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled16" name="HandPulledNoodle16"><label
+                        for="HandPulled16">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles16" name="thinnoodles16"><label
+                        for="thinnoodles16">細麵(精工細作)</label>
+                      <input type="radio" id="increase16" name="increase16"><label for="increase16">加大+$10</label>
+                      <input type="radio" id="nogreenonions16" name="nogreenonions16"><label
+                        for="nogreenonions16">不蔥</label>
+                      <input type="radio" id="nogarlic16" name="nogarlic16"><label for="nogarlic16">不蒜</label>
+                      <input type="radio" id="lessdrymeat16" name="lessdrymeat16"><label for="lessdrymeat16">少肉燥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev16">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num16" value="0">
+                        <div class="numnext" id="numnext16">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 17 -->
+                  <div class="divinputitems" id="divinputitem17">
+                    <label class="lblitems" for="storeitems17">
+                      <input type="checkbox" id="storeitems17" name="homemadeWontonNoodlessoup" class="inputitems">
+                      <div class="storeitem">私房餛飩麵（湯）</div>
+                      <div class="storeprice">NT$70</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect17">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled17" name="HandPulledNoodle17"><label
+                        for="HandPulled17">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles17" name="thinnoodles17"><label
+                        for="thinnoodles17">細麵(精工細作)</label>
+                      <input type="radio" id="increase17" name="increase17"><label for="increase17">加大+$10</label>
+                      <input type="radio" id="nogreenonions17" name="nogreenonions17"><label
+                        for="nogreenonions17">不蔥</label>
+                      <input type="radio" id="nogarlic17" name="nogarlic17"><label for="nogarlic17">不蒜</label>
+                      <input type="radio" id="lessdrymeat17" name="lessdrymeat17"><label for="lessdrymeat17">少肉燥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev17">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num17" value="0">
+                        <div class="numnext" id="numnext17">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 18 -->
+                  <div class="divinputitems" id="divinputitem18">
+                    <label class="lblitems" for="storeitems18">
+                      <input type="checkbox" id="storeitems18" name="drynoodles" class="inputitems">
+                      <div class="storeitem">小時候乾麵</div>
+                      <div class="storeprice">NT$50</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect18">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled18" name="HandPulledNoodle18"><label
+                        for="HandPulled18">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles18" name="thinnoodles18"><label
+                        for="thinnoodles18">細麵(精工細作)</label>
+                      <input type="radio" id="increase18" name="increase18"><label for="increase18">加大+$10</label>
+                      <input type="radio" id="nogreenonions18" name="nogreenonions18"><label
+                        for="nogreenonions18">不蔥</label>
+                      <input type="radio" id="nogarlic18" name="nogarlic18"><label for="nogarlic18">不蒜</label>
+                      <input type="radio" id="lessdrymeat18" name="lessdrymeat18"><label for="lessdrymeat18">少肉燥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev18">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num18" value="0">
+                        <div class="numnext" id="numnext18">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 19 -->
+                  <div class="divinputitems" id="divinputitem19">
+                    <label class="lblitems" for="storeitems19">
+                      <input type="checkbox" id="storeitems19" name="WarmNoodleSoup" class="inputitems">
+                      <div class="storeitem">暖心湯麵</div>
+                      <div class="storeprice">NT$50</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect19">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled19" name="HandPulledNoodle19"><label
+                        for="HandPulled19">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles19" name="thinnoodles19"><label
+                        for="thinnoodles19">細麵(精工細作)</label>
+                      <input type="radio" id="increase19" name="increase19"><label for="increase19">加大+$10</label>
+                      <input type="radio" id="nogreenonions19" name="nogreenonions19"><label
+                        for="nogreenonions19">不蔥</label>
+                      <input type="radio" id="lessdrymeat19" name="lessdrymeat19"><label for="lessdrymeat19">少肉燥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev19">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num19" value="0">
+                        <div class="numnext" id="numnext19">+</div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+
+              <div class="storeform" id="storeform2" style="display: none;">
+                <form class="storeinput" action="">
+                  <!-- 7 -->
+                  <div class="divinputitems" id="divinputitem7">
+                    <label class="lblitems" for="storeitems7">
+                      <input type="checkbox" id="storeitems7" name="DoubleTreasureBeefNoodles" class="inputitems">
+                      <div class="storeitem">好野人雙寶牛肉麵（湯）</div>
+                      <div class="storeprice">NT$210</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect7">
+                    <div class="selectitem">
+                      <div class="objitem">選項(可選四項):</div>
+                      <input type="radio" id="HandPulled7" name="HandPulledNoodle7"><label
+                        for="HandPulled7">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles7" name="thinnoodles7"><label
+                        for="thinnoodles7">細麵(精工細作)</label>
+                      <input type="radio" id="increase7" name="increase7"><label for="increase7">加大+$10</label>
+                      <input type="radio" id="nogreenonions7" name="nogreenonions7"><label
+                        for="nogreenonions7">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev7">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num7" value="0">
+                        <div class="numnext" id="numnext7">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 8 -->
+                  <div class="divinputitems" id="divinputitem8">
+                    <label class="lblitems" for="storeitems8">
+                      <input type="checkbox" id="storeitems8" name="Snowflakesteak" class="inputitems">
+                      <div class="storeitem">雪花涮牛肉麵（湯）</div>
+                      <div class="storeprice">NT$150</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect8">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled8" name="HandPulledNoodle8"><label
+                        for="HandPulled8">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles8" name="thinnoodles8"><label
+                        for="thinnoodles8">細麵(精工細作)</label>
+                      <input type="radio" id="increase8" name="increase8"><label for="increase8">加大+$10</label>
+                      <input type="radio" id="nogreenonions8" name="nogreenonions8"><label
+                        for="nogreenonions8">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev8">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num8" value="0">
+                        <div class="numnext" id="numnext8">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 9 -->
+                  <div class="divinputitems" id="divinputitem9">
+                    <label class="lblitems" for="storeitems9">
+                      <input type="checkbox" id="storeitems9" name="Leanbeefsteak" class="inputitems">
+                      <div class="storeitem">紅燒牛肉麵（有肉）</div>
+                      <div class="storeprice">NT$150</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect9">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled9" name="HandPulledNoodle9"><label
+                        for="HandPulled9">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles9" name="thinnoodles9"><label
+                        for="thinnoodles9">細麵(精工細作)</label>
+                      <input type="radio" id="increase9" name="increase9"><label for="increase9">加大+$10</label>
+                      <input type="radio" id="nogreenonions9" name="nogreenonions9"><label
+                        for="nogreenonions9">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev9">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num9" value="0">
+                        <div class="numnext" id="numnext9">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 10 -->
+                  <div class="divinputitems" id="divinputitem10">
+                    <label class="lblitems" for="storeitems10">
+                      <input type="checkbox" id="storeitems10" name="Leanbeefsteaknomeat" class="inputitems">
+                      <div class="storeitem">紅燒牛肉麵（無肉）</div>
+                      <div class="storeprice">NT$150</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect10">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled10" name="HandPulledNoodle10"><label
+                        for="HandPulled10">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles10" name="thinnoodles10"><label
+                        for="thinnoodles10">細麵(精工細作)</label>
+                      <input type="radio" id="increase10" name="increase10"><label for="increase10">加大+$10</label>
+                      <input type="radio" id="nogreenonions10" name="nogreenonions10"><label
+                        for="nogreenonions10">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev10">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num10" value="0">
+                        <div class="numnext" id="numnext10">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 11 -->
+                  <div class="divinputitems" id="divinputitem11">
+                    <label class="lblitems" for="storeitems11">
+                      <input type="checkbox" id="storeitems11" name="BeefSoupDumplings" class="inputitems">
+                      <div class="storeitem">牛肉湯餃（高麗菜水餃10顆）</div>
+                      <div class="storeprice">NT$90</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect11">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="chives11" name="chives11"><label for="chives11">更換韭黃水餃</label>
+                      <input type="radio" id="spicyDumplings11" name="spicyDumplings11"><label
+                        for="spicyDumplings11">更換麻辣水餃</label>
+                      <!-- <input type="radio" id="greenBeanDumplings11" name="greenBeanDumplings11" disabled><label for="greenBeanDumplings11" >更換四季豆水餃</label> -->
+                      <input type="radio" id="increase11" name="increase11"><label for="increase11">加大(15顆)+$30</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev11">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num11" value="0">
+                        <div class="numnext" id="numnext11">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 12 -->
+                  <div class="divinputitems" id="divinputitem12">
+                    <label class="lblitems" for="storeitems12">
+                      <input type="checkbox" id="storeitems12" name="beeftendonnoodles" class="inputitems">
+                      <div class="storeitem">牛筋肉麵（限量）</div>
+                      <div class="storeprice">NT$150</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect12">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="HandPulled12" name="HandPulledNoodle12"><label
+                        for="HandPulled12">拉麵(爽口入口)</label>
+                      <input type="radio" id="thinnoodles12" name="thinnoodles12"><label
+                        for="thinnoodles12">細麵(精工細作)</label>
+                      <input type="radio" id="increase12" name="increase12"><label for="increase12">加大+$10</label>
+                      <input type="radio" id="nogreenonions12" name="nogreenonions12"><label
+                        for="nogreenonions12">不蔥</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev12">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num12" value="0">
+                        <div class="numnext" id="numnext12">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 13 -->
+                  <div class="divinputitems" id="divinputitem13">
+                    <label class="lblitems" for="storeitems13">
+                      <input type="checkbox" id="storeitems13" name="fuguiBraisedBeefSoupDumplings" class="inputitems">
+                      <div class="storeitem">富貴紅燒牛肉湯餃（有肉）</div>
+                      <div class="storeprice">NT$165</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect13">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="chivesDumplings13" name="chivesDumplings13"><label
+                        for="chivesDumplings13">更換韭黃水餃</label>
+                      <input type="radio" id="spicyDumplings13" name="spicyDumplings13"><label
+                        for="spicyDumplings13">更換麻辣水餃</label>
+                      <!-- <input type="radio" id="greenBeanDumplings13" name="greenBeanDumplings13" disabled><label for="greenBeanDumplings13" >更換四季豆水餃</label> -->
+                      <input type="radio" id="increase13" name="increase13"><label for="increase13">加大(15顆)+$30</label>
+
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev13">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num13" value="0">
+                        <div class="numnext" id="numnext13">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 14 -->
+                  <div class="divinputitems" id="divinputitem14">
+                    <label class="lblitems" for="storeitems14">
+                      <input type="checkbox" id="storeitems14" name="cornChowderDumplings" class="inputitems">
+                      <div class="storeitem">玉米濃湯湯餃（高麗菜水餃10顆）</div>
+                      <div class="storeprice">NT$90</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect14">
+                    <div class="selectitem">
+                      <div class="objitem">選項:</div>
+                      <input type="radio" id="chivesDumplings14" name="chivesDumplings14"><label
+                        for="chivesDumplings14">更換韭黃水餃</label>
+                      <input type="radio" id="spicyDumplings14" name="spicyDumplings14"><label
+                        for="spicyDumplings14">更換麻辣水餃</label>
+                      <!-- <input type="radio" id="greenBeanDumplings14" name="greenBeanDumplings14" disabled><label for="greenBeanDumplings14" >更換四季豆水餃</label> -->
+                      <input type="radio" id="increase14" name="increase14"><label for="increase14">加大(15顆)+$30</label>
+
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev14">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num14" value="0">
+                        <div class="numnext" id="numnext14">+</div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+
+              <div class="storeform" id="storeform1" style="display: none;">
+                <form class="storeinput" action="">
+                  <!-- 1 -->
+                  <div class="divinputitems" id="divinputitem1">
+                    <label class="lblitems" for="storeitems1">
+                      <input type="checkbox" id="storeitems1" name="MeringuePotStickers" class="inputitems">
+                      <div class="storeitem">酥皮鍋貼</div>
+                      <div class="storeprice">NT$70</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect1">
+                    <div class="selectitem">
+                      <div class="objitem1">選項:</div>
+                      <input type="radio" id="objsix1" name="pieces1">
+                      <label for="objsix1">6顆+$0</label>
+                      <input type="radio" id="objnine1" name="pieces1">
+                      <label for="objnine1">9顆+$30</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev1">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num1" value="0">
+                        <div class="numnext" id="numnext1">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 2 -->
+                  <div class="divinputitems" id="divinputitem2">
+                    <label class="lblitems" for="storeitems2">
+                      <input type="checkbox" id="storeitems2" name="BashuspicySichuansesamepotstickers"
+                        class="inputitems">
+                      <div class="storeitem">巴蜀香辣川麻鍋貼</div>
+                      <div class="storeprice">NT$75</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect2">
+                    <div class="selectitem">
+                      <div class="objitem2">選項:</div>
+                      <input type="radio" id="objsix2" name="pieces2"><label for="objsix2">6顆+$0</label>
+                      <input type="radio" id="objnine2" name="pieces2"><label for="objnine2">9顆+$30</label>
+                    </div>
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev2">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num2" value="0">
+                        <div class="numnext" id="numnext2">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 3 -->
+                  <div class="divinputitems" id="divinputitem3">
+                    <label class="lblitems" for="storeitems3">
+                      <input type="checkbox" id="storeitems3" name="OriginalCrispyFriedDumplings" class="inputitems">
+                      <div class="storeitem">點心時間～～原味脆皮煎餃(10顆)</div>
+                      <div class="storeprice">NT$88</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect3">
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev3">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num3" value="0">
+                        <div class="numnext" id="numnext3">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 4 -->
+                  <div class="divinputitems" id="divinputitem4">
+                    <label class="lblitems" for="storeitems4">
+                      <input type="checkbox" id="storeitems4" name="SpicyCrispyFriedDumplings" class="inputitems">
+                      <div class="storeitem">點心時間～～香辣辣脆皮煎餃(10顆)</div>
+                      <div class="storeprice">NT$99</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect4">
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev4">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num4" value="0">
+                        <div class="numnext" id="numnext4">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 5 -->
+                  <div class="divinputitems" id="divinputitem5">
+                    <label class="lblitems" for="storeitems5">
+                      <input type="checkbox" id="storeitems5" name="FlavoredCarrotCakewithEgg" class="inputitems">
+                      <div class="storeitem">點心時間～風味蘿蔔糕加蛋</div>
+                      <div class="storeprice">NT$55</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect5">
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev5">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num5" value="0">
+                        <div class="numnext" id="numnext5">+</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 6 -->
+                  <div class="divinputitems" id="divinputitem6">
+                    <label class="lblitems" for="storeitems6">
+                      <input type="checkbox" id="storeitems6" name="NutritiousScrambledEggsforBrunch"
+                        class="inputitems">
+                      <div class="storeitem">點心時間～～早午餐營養炒蛋</div>
+                      <div class="storeprice">NT$39</div>
+                    </label>
+                  </div>
+                  <div class="storeselect" id="storeselect6">
+                    <div class="countpeople">
+                      <div class="peoplenumtitle">數量:</div>
+                      <div class="peoplenum">
+                        <div class="numprev" id="numprev6">&minus;</div>
+                        <input type="number" class="number spainner" name=numberofpeople id="num6" value="0">
+                        <div class="numnext" id="numnext6">+</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+
+              <div class="storemap">
+
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d910.1427008565976!2d120.65087914451792!3d24.15170650936305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d96fadff6b5%3A0x44ae0e385c328c2e!2z6LGq54Wu6Jed57aT5YW46bq16aOf6aSo!5e0!3m2!1szh-TW!2stw!4v1668516369739!5m2!1szh-TW!2stw"
+                  width="500" height="500" style="border-radius: 10px;width: 100%;height: 100%;" allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+
+  </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </main>
+  <!-- footer------------------------------------------------------------------------ -->
+  <footer style="height: 500px; ">
+
+
+
+
+
+    <div class="time">
+      <div class="container1">
+        <div class="dateItem" id="dateId"></div>
+        <div class="apmItem" id="apmId"></div>
+      </div>
+      <div class="container2">
+        <div class="hourItem" id="hourId"></div>
+      </div>
+      <div class="container3">
+        <div class="container5"></div>
+        <div class="minItem" id="minId"></div>
+        <div class="container4">
+          <div class="secItem" id="secId"></div>
+          <!-- <div class="customerFlow">瀏覽次數:<div class="customerFlowNum" id="flowNumId"></div></div> -->
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </footer>
+
+
+
+
+
+  </div>
+
+
+
+  <script src="jq/jquery-3.6.0.js"></script>
+
+  <script src="./js-self/pageshow.js"></script>
+</body>
+
+</html>
