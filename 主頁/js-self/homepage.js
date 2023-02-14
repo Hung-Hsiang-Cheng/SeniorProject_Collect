@@ -563,12 +563,11 @@ const color = document.querySelector("#colorselect");
 const canvas = document.querySelector("#massageCanvas");
 const ctx = canvas.getContext("2d");
 
+var nowColor = $("#colorselect").val();
+var time = $("#speedselect").val() / 100;
+var texts = [];
 canvaswidth = parseInt($("#massageCanvas").css("width"));
 canvasheight = parseInt($("#massageCanvas").css("height"));
-
-var nowColor = $("#colorselect").val();
-var time = $("#speedselect").val();
-var texts = [];
 
 color.addEventListener("change", () => {
   nowColor = $("#colorselect").val();
@@ -584,7 +583,7 @@ btn.addEventListener("click", () => {
     texts.push({
       txt: nowTxt,
       x: canvaswidth,
-      y: (Math.random() * 100000) % canvasheight,
+      y: Math.floor(Math.random() * (canvasheight - 16) + 16),
       color: nowColor,
     });
   }
@@ -600,8 +599,8 @@ function update() {
   ctx.clearRect(0, 0, canvaswidth, canvasheight);
 
   for (let i = 0; i < texts.length; i++) {
-    texts[i].x -= 5;
-    // if (texts[i].x < 0){texts.splice(i, 1);}
+    texts[i].x -= 1;
+    if (texts[i].x < -canvaswidth) texts.splice(i, 1);
   }
 
   texts.forEach((item) => {
